@@ -12,7 +12,6 @@
     *{box-sizing:border-box;margin:0;padding:0}
     body{font-family:'Segoe UI',sans-serif;background:#f0f2f5;color:#1a1a2e;min-height:100vh}
 
-    /* HEADER */
     header{background:linear-gradient(135deg,#1a1a2e,#16213e);color:white;padding:20px 40px;
       display:flex;align-items:center;justify-content:space-between;
       box-shadow:0 2px 12px rgba(0,0,0,.3);position:sticky;top:0;z-index:100}
@@ -21,7 +20,6 @@
 
     .container{max-width:1350px;margin:0 auto;padding:28px 20px}
 
-    /* UPLOAD */
     .upload-zone{background:white;border:2px dashed #c0c8d8;border-radius:16px;padding:48px 24px;
       text-align:center;cursor:pointer;transition:all .2s;margin-bottom:28px}
     .upload-zone:hover,.upload-zone.drag-over{border-color:#4f81f7;background:#f5f8ff}
@@ -32,7 +30,6 @@
       padding:10px 24px;border-radius:8px;font-size:.9rem;font-weight:500}
     #fileInput{display:none}
 
-    /* COLUMN MAPPER */
     .column-map{background:white;border-radius:16px;padding:28px;margin-bottom:28px;
       box-shadow:0 1px 6px rgba(0,0,0,.07);display:none}
     .column-map h3{font-size:1rem;margin-bottom:16px;color:#444}
@@ -44,7 +41,6 @@
       padding:11px 28px;border-radius:8px;font-size:.9rem;font-weight:600;cursor:pointer}
     .column-map button:hover{background:#3a6be0}
 
-    /* KPIs */
     .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
       gap:18px;margin-bottom:28px}
     .kpi-card{background:white;border-radius:14px;padding:20px 22px;
@@ -56,13 +52,11 @@
     .kpi-card .val{font-size:1.5rem;font-weight:700;color:#1a1a2e}
     .kpi-card .sub{font-size:.75rem;color:#aaa;margin-top:4px}
 
-    /* CHART */
     .chart-card{background:white;border-radius:16px;padding:26px;
       box-shadow:0 1px 6px rgba(0,0,0,.07);margin-bottom:28px}
     .chart-card h3{font-size:1rem;font-weight:600;margin-bottom:18px;color:#333}
     .chart-card canvas{max-height:300px}
 
-    /* TOOLBAR */
     .toolbar{display:flex;align-items:center;justify-content:space-between;
       flex-wrap:wrap;gap:12px;margin-bottom:16px}
     .toolbar .section-title{font-size:1rem;font-weight:600;color:#333}
@@ -76,7 +70,6 @@
     .btn-red{background:#dc2626;color:white}
     .btn-red:hover{background:#b91c1c}
 
-    /* MAIN TABLE */
     .table-wrapper{background:white;border-radius:16px;
       box-shadow:0 1px 6px rgba(0,0,0,.07);overflow-x:auto}
     .main-table{width:100%;border-collapse:collapse;font-size:.86rem;min-width:680px}
@@ -123,7 +116,6 @@
       font-size:.83rem;color:#555;cursor:pointer}
     .reload-btn:hover{border-color:#4f81f7;color:#4f81f7;background:#f5f8ff}
 
-    /* ===== BROKER DETAIL MODAL ===== */
     .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);
       z-index:200;overflow-y:auto;padding:20px}
     .modal-overlay.open{display:flex;align-items:flex-start;justify-content:center}
@@ -241,7 +233,6 @@ const MONTH_ORDER = ['enero','febrero','marzo','abril','mayo','junio',
 let rawData=[], colHeaders=[], chartInstance=null, modalChartInstance=null;
 let currentBroker = null;
 
-/* ---- Upload ---- */
 const zone = document.getElementById('uploadZone');
 const fileInput = document.getElementById('fileInput');
 zone.addEventListener('click', () => fileInput.click());
@@ -283,37 +274,24 @@ function autoDetect(id, kws) {
 }
 
 /* ---- Date normalization ---- */
-// Always returns "mes año" e.g. "abril 2026" — consistent for grouping
 function fromDate(d) {
-  // Use UTC to avoid timezone shifting the day (e.g. Apr 1 UTC → Mar 31 local)
   return `${MONTH_ORDER[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
 }
 
 function normalizeMonth(raw) {
-  // JS Date object (SheetJS cellDates:true produces these)
   if (raw instanceof Date && !isNaN(raw)) return fromDate(raw);
-
-  // Excel serial number
   if (typeof raw === 'number' && raw > 1000)
     return fromDate(new Date((raw - 25569) * 86400 * 1000));
-
   const str = String(raw).trim();
-
-  // DD/MM/YYYY  (Mexican standard)
   let m = str.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})$/);
   if (m) return `${MONTH_ORDER[+m[2]-1]} ${m[3]}`;
-
-  // YYYY-MM-DD
   m = str.match(/^(\d{4})[\/\-](\d{1,2})[\/\-](\d{1,2})$/);
   if (m) return `${MONTH_ORDER[+m[2]-1]} ${m[1]}`;
-
-  // String already contains a month name: "abril 2026", "1 de abril de 2026", "Abril-2026", etc.
   const lower = str.toLowerCase();
   const mIdx  = MONTH_ORDER.findIndex(mn => lower.includes(mn));
   const yearM = lower.match(/\d{4}/);
   if (mIdx >= 0 && yearM) return `${MONTH_ORDER[mIdx]} ${yearM[0]}`;
-
-  return str.toLowerCase(); // last resort
+  return str.toLowerCase();
 }
 
 function getOrderedMonths(data) {
@@ -328,7 +306,6 @@ function getOrderedMonths(data) {
   });
 }
 
-/* ---- Apply mapping ---- */
 function applyMapping() {
   const iF=+document.getElementById('colFecha').value,
         iB=+document.getElementById('colBroker').value,
@@ -351,7 +328,6 @@ function applyMapping() {
   zone.style.display = 'none';
 }
 
-/* ---- KPIs ---- */
 function renderKPIs(data) {
   const total   = data.reduce((s,r)=>s+r.monto,0);
   const brokers = new Set(data.map(r=>r.broker)).size;
@@ -364,7 +340,6 @@ function renderKPIs(data) {
     <div class="kpi-card purple"><div class="lbl">Promedio Mensual</div><div class="val">${$MXN(total/(meses||1))}</div><div class="sub">por mes</div></div>`;
 }
 
-/* ---- Chart ---- */
 function renderChart(data, canvasId='monthChart', destroyRef='chartInstance') {
   const months = getOrderedMonths(data);
   const byMonth = {};
@@ -391,7 +366,6 @@ function renderChart(data, canvasId='monthChart', destroyRef='chartInstance') {
   });
 }
 
-/* ---- Broker table ---- */
 function buildBrokerMap(data) {
   const map = {};
   data.forEach(r => {
@@ -409,10 +383,8 @@ function renderBrokersTable(data) {
   const lastTwo   = allMonths.slice(-2);
   const hasDiff   = lastTwo.length === 2;
   const brokerMap = buildBrokerMap(data);
-
   const sorted = Object.entries(brokerMap).sort((a,b)=>totalOf(b[1])-totalOf(a[1]));
 
-  // Head
   document.getElementById('brokerTableHead').innerHTML = `<tr>
     <th>BROKER / CLIENTE</th>
     <th>ACCIÓN</th>
@@ -421,7 +393,6 @@ function renderBrokersTable(data) {
     <th>TIPO</th>
   </tr>`;
 
-  // Body
   let html='';
   sorted.forEach(([broker, info], idx) => {
     const mCells = monthCells(info.byMonth, allMonths);
@@ -482,7 +453,6 @@ function toggleBroker(idx) {
     .forEach(r => r.style.display = open ? '' : 'none');
 }
 
-/* ---- BROKER MODAL ---- */
 function openBrokerModal(broker) {
   currentBroker = broker;
   const data = window.parsedData.filter(r => r.broker === broker);
@@ -492,7 +462,6 @@ function openBrokerModal(broker) {
 
   document.getElementById('modalBrokerName').textContent = broker;
 
-  // KPIs
   const total   = data.reduce((s,r)=>s+r.monto,0);
   const clients = new Set(data.map(r=>r.cliente)).size;
   const meses   = new Set(data.map(r=>r.mes)).size;
@@ -515,7 +484,6 @@ function openBrokerModal(broker) {
 
   renderChart(data, 'modalChart', 'modalChartInstance');
 
-  // Table
   document.getElementById('modalTableHead').innerHTML = `<tr>
     <th>CLIENTE</th>
     ${allMonths.map(m=>`<th>${cap(m)}</th>`).join('')}
@@ -547,7 +515,6 @@ function closeModalOnBg(e) {
   if (e.target === document.getElementById('modalOverlay')) closeModal();
 }
 
-/* ---- EXCEL DOWNLOAD (main) ---- */
 function downloadExcel() {
   const data = window.parsedData;
   const allMonths = getOrderedMonths(data);
@@ -555,100 +522,67 @@ function downloadExcel() {
   const hasDiff = lastTwo.length === 2;
   const brokerMap = buildBrokerMap(data);
   const sorted = Object.entries(brokerMap).sort((a,b)=>totalOf(b[1])-totalOf(a[1]));
-
-  const headers = ['Broker / Cliente', 'Tipo',
-    ...allMonths.map(m => cap(m)),
-    ...(hasDiff ? ['Diferencia','% Cambio'] : [])
-  ];
+  const headers = ['Broker / Cliente','Tipo',...allMonths.map(m=>cap(m)),
+    ...(hasDiff?['Diferencia','% Cambio']:[])];
   const rows = [headers];
-
   sorted.forEach(([broker, info]) => {
-    const prev = hasDiff ? info.byMonth[lastTwo[0]]||0 : 0;
-    const curr = hasDiff ? info.byMonth[lastTwo[1]]||0 : 0;
-    const diff = curr - prev;
-    const pct  = prev>0 ? diff/prev*100 : null;
-    rows.push([broker, 'Broker',
-      ...allMonths.map(m => info.byMonth[m]||0),
-      ...(hasDiff ? [diff, pct!==null?+(pct.toFixed(2)):null] : [])
-    ]);
-    Object.entries(info.clients)
-      .sort((a,b)=>totalOf(b[1])-totalOf(a[1]))
-      .forEach(([cliente, cInfo]) => {
-        const cp = hasDiff ? cInfo.byMonth[lastTwo[0]]||0 : 0;
-        const cc = hasDiff ? cInfo.byMonth[lastTwo[1]]||0 : 0;
-        const cd = cc-cp, cpct = cp>0?cd/cp*100:null;
-        rows.push([cliente, 'Cliente',
-          ...allMonths.map(m => cInfo.byMonth[m]||0),
-          ...(hasDiff ? [cd, cpct!==null?+(cpct.toFixed(2)):null] : [])
-        ]);
+    const prev=hasDiff?info.byMonth[lastTwo[0]]||0:0;
+    const curr=hasDiff?info.byMonth[lastTwo[1]]||0:0;
+    const diff=curr-prev, pct=prev>0?diff/prev*100:null;
+    rows.push([broker,'Broker',...allMonths.map(m=>info.byMonth[m]||0),
+      ...(hasDiff?[diff,pct!==null?+(pct.toFixed(2)):null]:[])]);
+    Object.entries(info.clients).sort((a,b)=>totalOf(b[1])-totalOf(a[1]))
+      .forEach(([cliente,cInfo]) => {
+        const cp=hasDiff?cInfo.byMonth[lastTwo[0]]||0:0;
+        const cc=hasDiff?cInfo.byMonth[lastTwo[1]]||0:0;
+        const cd=cc-cp, cpct=cp>0?cd/cp*100:null;
+        rows.push([cliente,'Cliente',...allMonths.map(m=>cInfo.byMonth[m]||0),
+          ...(hasDiff?[cd,cpct!==null?+(cpct.toFixed(2)):null]:[])]);
       });
   });
-
-  const ws = XLSX.utils.aoa_to_sheet(rows);
-  const wb = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb, ws, 'Facturación');
-  XLSX.writeFile(wb, 'reporte_facturacion.xlsx');
+  const ws=XLSX.utils.aoa_to_sheet(rows);
+  const wb=XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb,ws,'Facturación');
+  XLSX.writeFile(wb,'reporte_facturacion.xlsx');
 }
 
-/* ---- PDF DOWNLOAD (main) ---- */
 function downloadPDF() {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({ orientation:'landscape', unit:'mm', format:'a4' });
-  doc.setFontSize(14);
-  doc.text('Reporte de Facturación', 14, 16);
-  doc.setFontSize(9);
-  doc.text(`Generado: ${new Date().toLocaleDateString('es-MX')}`, 14, 22);
-
+  doc.setFontSize(14); doc.text('Reporte de Facturación', 14, 16);
+  doc.setFontSize(9);  doc.text(`Generado: ${new Date().toLocaleDateString('es-MX')}`, 14, 22);
   const data = window.parsedData;
   const allMonths = getOrderedMonths(data);
   const lastTwo = allMonths.slice(-2);
   const hasDiff = lastTwo.length === 2;
   const brokerMap = buildBrokerMap(data);
   const sorted = Object.entries(brokerMap).sort((a,b)=>totalOf(b[1])-totalOf(a[1]));
-
-  const head = [['Broker / Cliente','Tipo',
-    ...allMonths.map(m=>cap(m)),
+  const head=[['Broker / Cliente','Tipo',...allMonths.map(m=>cap(m)),
     ...(hasDiff?['Diferencia','% Cambio']:[])]];
-  const body = [];
-
-  sorted.forEach(([broker, info]) => {
+  const body=[];
+  sorted.forEach(([broker,info]) => {
     const prev=hasDiff?info.byMonth[lastTwo[0]]||0:0;
     const curr=hasDiff?info.byMonth[lastTwo[1]]||0:0;
     const diff=curr-prev, pct=prev>0?diff/prev*100:null;
-    body.push({ cells:[broker,'Broker',
-      ...allMonths.map(m=>info.byMonth[m]?$MXN(info.byMonth[m]):'—'),
-      ...(hasDiff?[fmtDiff(diff),pct!==null?fmtPct(pct):'—']:[])
-    ], isBroker:true });
-    Object.entries(info.clients)
-      .sort((a,b)=>totalOf(b[1])-totalOf(a[1]))
-      .forEach(([cliente, cInfo]) => {
+    body.push({cells:[broker,'Broker',...allMonths.map(m=>info.byMonth[m]?$MXN(info.byMonth[m]):'—'),
+      ...(hasDiff?[fmtDiff(diff),pct!==null?fmtPct(pct):'—']:[])],isBroker:true});
+    Object.entries(info.clients).sort((a,b)=>totalOf(b[1])-totalOf(a[1]))
+      .forEach(([cliente,cInfo]) => {
         const cp=hasDiff?cInfo.byMonth[lastTwo[0]]||0:0;
         const cc=hasDiff?cInfo.byMonth[lastTwo[1]]||0:0;
         const cd=cc-cp, cpct=cp>0?cd/cp*100:null;
-        body.push({ cells:['  '+cliente,'Cliente',
-          ...allMonths.map(m=>cInfo.byMonth[m]?$MXN(cInfo.byMonth[m]):'—'),
-          ...(hasDiff?[fmtDiff(cd),cpct!==null?fmtPct(cpct):'—']:[])
-        ], isBroker:false });
+        body.push({cells:['  '+cliente,'Cliente',...allMonths.map(m=>cInfo.byMonth[m]?$MXN(cInfo.byMonth[m]):'—'),
+          ...(hasDiff?[fmtDiff(cd),cpct!==null?fmtPct(cpct):'—']:[])],isBroker:false});
       });
   });
-
-  doc.autoTable({
-    head,
-    body: body.map(r=>r.cells),
-    startY: 28,
-    styles:{ fontSize:7, cellPadding:2 },
-    headStyles:{ fillColor:[26,26,46], textColor:255, fontStyle:'bold' },
-    didParseCell: (d) => {
-      if (d.section==='body' && body[d.row.index]?.isBroker)
-        d.cell.styles.fillColor = [255,253,231];
-    },
-    columnStyles:{ 0:{ cellWidth:45 } }
-  });
-
+  doc.autoTable({head,body:body.map(r=>r.cells),startY:28,
+    styles:{fontSize:7,cellPadding:2},
+    headStyles:{fillColor:[26,26,46],textColor:255,fontStyle:'bold'},
+    didParseCell:(d)=>{if(d.section==='body'&&body[d.row.index]?.isBroker)d.cell.styles.fillColor=[255,253,231]},
+    columnStyles:{0:{cellWidth:45}}});
   doc.save('reporte_facturacion.pdf');
 }
 
-/* ---- BROKER EXCEL ---- */
 function downloadBrokerExcel() {
   if (!currentBroker) return;
   const data = window.parsedData.filter(r=>r.broker===currentBroker);
@@ -656,12 +590,9 @@ function downloadBrokerExcel() {
   const lastTwo = allMonths.slice(-2);
   const hasDiff = lastTwo.length === 2;
   const clientMap = buildBrokerMap(data)[currentBroker]?.clients || {};
-
-  const headers = ['Cliente',...allMonths.map(m=>cap(m)),
-    ...(hasDiff?['Diferencia','% Cambio']:[])];
-  const rows = [headers];
-  Object.entries(clientMap)
-    .sort((a,b)=>totalOf(b[1])-totalOf(a[1]))
+  const headers=['Cliente',...allMonths.map(m=>cap(m)),...(hasDiff?['Diferencia','% Cambio']:[])];
+  const rows=[headers];
+  Object.entries(clientMap).sort((a,b)=>totalOf(b[1])-totalOf(a[1]))
     .forEach(([cliente,cInfo]) => {
       const cp=hasDiff?cInfo.byMonth[lastTwo[0]]||0:0;
       const cc=hasDiff?cInfo.byMonth[lastTwo[1]]||0:0;
@@ -675,24 +606,19 @@ function downloadBrokerExcel() {
   XLSX.writeFile(wb,`broker_${currentBroker.replace(/\s+/g,'_')}.xlsx`);
 }
 
-/* ---- BROKER PDF ---- */
 function downloadBrokerPDF() {
   if (!currentBroker) return;
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({ orientation:'landscape', unit:'mm', format:'a4' });
   doc.setFontSize(13); doc.text(`Broker: ${currentBroker}`, 14, 16);
   doc.setFontSize(9);  doc.text(`Generado: ${new Date().toLocaleDateString('es-MX')}`, 14, 22);
-
   const data = window.parsedData.filter(r=>r.broker===currentBroker);
   const allMonths = getOrderedMonths(data);
   const lastTwo = allMonths.slice(-2);
   const hasDiff = lastTwo.length === 2;
   const clientMap = buildBrokerMap(data)[currentBroker]?.clients || {};
-
-  const head = [['Cliente',...allMonths.map(m=>cap(m)),
-    ...(hasDiff?['Diferencia','% Cambio']:[])]];
-  const body = Object.entries(clientMap)
-    .sort((a,b)=>totalOf(b[1])-totalOf(a[1]))
+  const head=[['Cliente',...allMonths.map(m=>cap(m)),...(hasDiff?['Diferencia','% Cambio']:[])]];
+  const body=Object.entries(clientMap).sort((a,b)=>totalOf(b[1])-totalOf(a[1]))
     .map(([cliente,cInfo]) => {
       const cp=hasDiff?cInfo.byMonth[lastTwo[0]]||0:0;
       const cc=hasDiff?cInfo.byMonth[lastTwo[1]]||0:0;
@@ -700,13 +626,9 @@ function downloadBrokerPDF() {
       return [cliente,...allMonths.map(m=>cInfo.byMonth[m]?$MXN(cInfo.byMonth[m]):'—'),
         ...(hasDiff?[fmtDiff(cd),cpct!==null?fmtPct(cpct):'—']:[])];
     });
-
-  doc.autoTable({
-    head, body, startY:28,
-    styles:{fontSize:7,cellPadding:2},
+  doc.autoTable({head,body,startY:28,styles:{fontSize:7,cellPadding:2},
     headStyles:{fillColor:[26,26,46],textColor:255,fontStyle:'bold'},
-    columnStyles:{0:{cellWidth:55}}
-  });
+    columnStyles:{0:{cellWidth:55}}});
   doc.save(`broker_${currentBroker.replace(/\s+/g,'_')}.pdf`);
 }
 
@@ -718,26 +640,24 @@ function reloadFile() {
   fileInput.value='';
 }
 
-/* ---- Helpers ---- */
-function totalOf(info) { return Object.values(info.byMonth||{}).reduce((s,v)=>s+v,0); }
-function escQ(s) { return s.replace(/'/g,"\\'"); }
-
-function $MXN(n) {
-  if(isNaN(n)||n===0) return '—';
+function totalOf(info){return Object.values(info.byMonth||{}).reduce((s,v)=>s+v,0)}
+function escQ(s){return s.replace(/'/g,"\\'")}
+function $MXN(n){
+  if(isNaN(n)||n===0)return '—';
   return new Intl.NumberFormat('es-MX',{style:'currency',currency:'MXN',
     minimumFractionDigits:2,maximumFractionDigits:2}).format(n);
 }
-function fmtDiff(d) {
-  if(d===0) return '—';
+function fmtDiff(d){
+  if(d===0)return '—';
   const f=new Intl.NumberFormat('es-MX',{style:'currency',currency:'MXN',
     minimumFractionDigits:2,maximumFractionDigits:2}).format(Math.abs(d));
   return d<0?`(${f})`:`+${f}`;
 }
-function fmtPct(p) {
-  if(p===null) return '—';
+function fmtPct(p){
+  if(p===null)return '—';
   return p<0?`(${Math.abs(p).toFixed(1)}%)`:`+${Math.abs(p).toFixed(1)}%`;
 }
-function cap(s) { return s?s.charAt(0).toUpperCase()+s.slice(1):''; }
+function cap(s){return s?s.charAt(0).toUpperCase()+s.slice(1):''}
 </script>
 </body>
 </html>

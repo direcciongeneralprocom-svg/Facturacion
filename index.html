@@ -11,15 +11,12 @@
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
     body{font-family:'Segoe UI',sans-serif;background:#f0f2f5;color:#1a1a2e;min-height:100vh}
-
     header{background:linear-gradient(135deg,#1a1a2e,#16213e);color:white;padding:20px 40px;
       display:flex;align-items:center;justify-content:space-between;
       box-shadow:0 2px 12px rgba(0,0,0,.3);position:sticky;top:0;z-index:100}
     header h1{font-size:1.4rem;font-weight:600}
     header span{font-size:.82rem;opacity:.7}
-
     .container{max-width:1350px;margin:0 auto;padding:28px 20px}
-
     .upload-zone{background:white;border:2px dashed #c0c8d8;border-radius:16px;padding:48px 24px;
       text-align:center;cursor:pointer;transition:all .2s;margin-bottom:28px}
     .upload-zone:hover,.upload-zone.drag-over{border-color:#4f81f7;background:#f5f8ff}
@@ -29,20 +26,16 @@
     .upload-zone .hint{display:inline-block;margin-top:16px;background:#4f81f7;color:white;
       padding:10px 24px;border-radius:8px;font-size:.9rem;font-weight:500}
     #fileInput{display:none}
-
     .column-map{background:white;border-radius:16px;padding:28px;margin-bottom:28px;
       box-shadow:0 1px 6px rgba(0,0,0,.07);display:none}
     .column-map h3{font-size:1rem;margin-bottom:16px;color:#444}
     .column-map .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
     .column-map label{font-size:.8rem;color:#666;display:block;margin-bottom:4px}
-    .column-map select{width:100%;padding:8px 12px;border:1px solid #ddd;border-radius:8px;
-      font-size:.9rem;background:#fafafa}
+    .column-map select{width:100%;padding:8px 12px;border:1px solid #ddd;border-radius:8px;font-size:.9rem;background:#fafafa}
     .column-map button{margin-top:20px;background:#4f81f7;color:white;border:none;
       padding:11px 28px;border-radius:8px;font-size:.9rem;font-weight:600;cursor:pointer}
     .column-map button:hover{background:#3a6be0}
-
-    .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
-      gap:18px;margin-bottom:28px}
+    .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:18px;margin-bottom:28px}
     .kpi-card{background:white;border-radius:14px;padding:20px 22px;
       box-shadow:0 1px 6px rgba(0,0,0,.07);border-left:4px solid #4f81f7}
     .kpi-card.green{border-left-color:#22c55e}
@@ -51,14 +44,11 @@
     .kpi-card .lbl{font-size:.75rem;color:#888;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
     .kpi-card .val{font-size:1.5rem;font-weight:700;color:#1a1a2e}
     .kpi-card .sub{font-size:.75rem;color:#aaa;margin-top:4px}
-
     .chart-card{background:white;border-radius:16px;padding:26px;
       box-shadow:0 1px 6px rgba(0,0,0,.07);margin-bottom:28px}
     .chart-card h3{font-size:1rem;font-weight:600;margin-bottom:18px;color:#333}
     .chart-card canvas{max-height:300px}
-
-    .toolbar{display:flex;align-items:center;justify-content:space-between;
-      flex-wrap:wrap;gap:12px;margin-bottom:16px}
+    .toolbar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px}
     .toolbar .section-title{font-size:1rem;font-weight:600;color:#333}
     .toolbar-btns{display:flex;gap:8px;flex-wrap:wrap}
     .btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;
@@ -69,55 +59,40 @@
     .btn-green:hover{background:#15803d}
     .btn-red{background:#dc2626;color:white}
     .btn-red:hover{background:#b91c1c}
-
-    .table-wrapper{background:white;border-radius:16px;
-      box-shadow:0 1px 6px rgba(0,0,0,.07);overflow-x:auto}
+    .table-wrapper{background:white;border-radius:16px;box-shadow:0 1px 6px rgba(0,0,0,.07);overflow-x:auto}
     .main-table{width:100%;border-collapse:collapse;font-size:.86rem;min-width:680px}
     .main-table thead tr{background:#1a1a2e;color:white}
-    .main-table thead th{padding:13px 14px;text-align:right;font-size:.7rem;
-      font-weight:600;letter-spacing:.5px;white-space:nowrap}
+    .main-table thead th{padding:13px 14px;text-align:right;font-size:.7rem;font-weight:600;letter-spacing:.5px;white-space:nowrap}
     .main-table thead th:first-child{text-align:left;min-width:200px}
     .main-table thead th:nth-child(2){text-align:center;min-width:90px}
-
     .broker-row{background:#fffde7;cursor:pointer;user-select:none}
     .broker-row:hover{background:#fff9c4}
-    .broker-row td{padding:12px 14px;border-bottom:1px solid #e8e8e8;
-      font-weight:700;font-size:.88rem;color:#1a1a2e}
+    .broker-row td{padding:12px 14px;border-bottom:1px solid #e8e8e8;font-weight:700;font-size:.88rem;color:#1a1a2e}
     .broker-row td:first-child{text-align:left}
     .broker-row td:nth-child(2){text-align:center}
     .broker-row td:not(:first-child):not(:nth-child(2)){text-align:right}
-
-    .client-row td{padding:9px 14px;border-bottom:1px solid #f4f4f4;
-      font-size:.84rem;color:#444}
+    .client-row td{padding:9px 14px;border-bottom:1px solid #f4f4f4;font-size:.84rem;color:#444}
     .client-row td:first-child{text-align:left;padding-left:38px}
     .client-row td:nth-child(2){text-align:center}
     .client-row td:not(:first-child):not(:nth-child(2)){text-align:right}
-
     .broker-name-link{cursor:pointer;text-decoration:none;color:inherit}
     .broker-name-link:hover{text-decoration:underline;color:#4f81f7}
-    .chevron{display:inline-block;transition:transform .2s;font-size:.65rem;
-      margin-right:6px;color:#999}
+    .chevron{display:inline-block;transition:transform .2s;font-size:.65rem;margin-right:6px;color:#999}
     .broker-row.open .chevron{transform:rotate(90deg)}
-
     .neg{color:#dc2626!important;font-weight:600}
     .pos{color:#16a34a!important;font-weight:600}
     .neutral{color:#888!important}
     .amt-zero{color:#ccc}
     .amt{white-space:nowrap}
-
     .type-cell{text-align:center!important;white-space:nowrap}
     .badge-broker{background:#1a1a2e;color:white;padding:2px 9px;border-radius:20px;font-size:.68rem;font-weight:600}
     .badge-client{background:#e8f0fe;color:#4f81f7;padding:2px 9px;border-radius:20px;font-size:.68rem;font-weight:600}
-
     .dashboard-content{display:none}
     .dashboard-content.visible{display:block}
     .reload-btn{display:inline-flex;align-items:center;gap:6px;margin-bottom:20px;
-      background:white;border:1px solid #ddd;padding:7px 16px;border-radius:8px;
-      font-size:.83rem;color:#555;cursor:pointer}
+      background:white;border:1px solid #ddd;padding:7px 16px;border-radius:8px;font-size:.83rem;color:#555;cursor:pointer}
     .reload-btn:hover{border-color:#4f81f7;color:#4f81f7;background:#f5f8ff}
-
-    .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);
-      z-index:200;overflow-y:auto;padding:20px}
+    .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:200;overflow-y:auto;padding:20px}
     .modal-overlay.open{display:flex;align-items:flex-start;justify-content:center}
     .modal-box{background:#f0f2f5;border-radius:20px;width:100%;max-width:1200px;
       overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.4);animation:slideIn .2s ease}
@@ -130,14 +105,11 @@
       display:flex;align-items:center;justify-content:center}
     .modal-header .close-btn:hover{background:rgba(255,255,255,.3)}
     .modal-body{padding:24px 28px}
-    .modal-kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-      gap:14px;margin-bottom:22px}
-    .modal-chart-wrap{background:white;border-radius:14px;padding:22px;
-      box-shadow:0 1px 6px rgba(0,0,0,.07);margin-bottom:22px}
+    .modal-kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:22px}
+    .modal-chart-wrap{background:white;border-radius:14px;padding:22px;box-shadow:0 1px 6px rgba(0,0,0,.07);margin-bottom:22px}
     .modal-chart-wrap h3{font-size:.9rem;font-weight:600;color:#333;margin-bottom:14px}
     .modal-chart-wrap canvas{max-height:260px}
-    .modal-table-wrap{background:white;border-radius:14px;
-      box-shadow:0 1px 6px rgba(0,0,0,.07);overflow-x:auto}
+    .modal-table-wrap{background:white;border-radius:14px;box-shadow:0 1px 6px rgba(0,0,0,.07);overflow-x:auto}
     .modal-table-wrap h3{font-size:.9rem;font-weight:600;color:#333;padding:18px 20px 0}
     .modal-dl-btns{display:flex;gap:8px;padding:14px 20px;flex-wrap:wrap}
   </style>
@@ -150,7 +122,6 @@
 </header>
 
 <div class="container">
-
   <div class="upload-zone" id="uploadZone">
     <div class="icon">📂</div>
     <h2>Carga tu archivo de facturación</h2>
@@ -172,14 +143,11 @@
 
   <div class="dashboard-content" id="dashboardContent">
     <button class="reload-btn" onclick="reloadFile()">↩ Cargar otro archivo</button>
-
     <div class="kpi-grid" id="kpiGrid"></div>
-
     <div class="chart-card">
       <h3>Facturación mensual comparativa</h3>
       <canvas id="monthChart"></canvas>
     </div>
-
     <div class="toolbar">
       <div class="section-title">Brokers y sus clientes — comparativo por mes</div>
       <div class="toolbar-btns">
@@ -187,9 +155,8 @@
         <button class="btn btn-red" onclick="downloadPDF()">⬇ Descargar PDF</button>
       </div>
     </div>
-
     <div class="table-wrapper">
-      <table class="main-table" id="brokerTable">
+      <table class="main-table">
         <thead id="brokerTableHead"></thead>
         <tbody id="brokerTableBody"></tbody>
       </table>
@@ -197,7 +164,6 @@
   </div>
 </div>
 
-<!-- BROKER DETAIL MODAL -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModalOnBg(event)">
   <div class="modal-box">
     <div class="modal-header">
@@ -217,7 +183,7 @@
           <button class="btn btn-red" onclick="downloadBrokerPDF()">⬇ PDF</button>
         </div>
         <div style="overflow-x:auto">
-          <table class="main-table" id="modalTable" style="min-width:500px">
+          <table class="main-table" style="min-width:500px">
             <thead id="modalTableHead"></thead>
             <tbody id="modalTableBody"></tbody>
           </table>
@@ -230,27 +196,30 @@
 <script>
 const MONTH_ORDER = ['enero','febrero','marzo','abril','mayo','junio',
                      'julio','agosto','septiembre','octubre','noviembre','diciembre'];
+const MONTH_ABBR  = ['ene','feb','mar','abr','may','jun',
+                     'jul','ago','sep','oct','nov','dic'];
+
 let rawData=[], colHeaders=[], chartInstance=null, modalChartInstance=null;
 let currentBroker = null;
 
-const zone = document.getElementById('uploadZone');
+const zone      = document.getElementById('uploadZone');
 const fileInput = document.getElementById('fileInput');
-zone.addEventListener('click', () => fileInput.click());
-zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('drag-over'); });
+zone.addEventListener('click',    () => fileInput.click());
+zone.addEventListener('dragover',  e => { e.preventDefault(); zone.classList.add('drag-over'); });
 zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
-zone.addEventListener('drop', e => { e.preventDefault(); zone.classList.remove('drag-over'); handleFile(e.dataTransfer.files[0]); });
+zone.addEventListener('drop',      e => { e.preventDefault(); zone.classList.remove('drag-over'); handleFile(e.dataTransfer.files[0]); });
 fileInput.addEventListener('change', e => handleFile(e.target.files[0]));
 
 function handleFile(file) {
   if (!file) return;
   const reader = new FileReader();
   reader.onload = e => {
-    const wb = XLSX.read(new Uint8Array(e.target.result), { type:'array', cellDates:true });
-    const ws = wb.Sheets[wb.SheetNames[0]];
+    const wb   = XLSX.read(new Uint8Array(e.target.result), { type:'array', cellDates:false });
+    const ws   = wb.Sheets[wb.SheetNames[0]];
     const json = XLSX.utils.sheet_to_json(ws, { header:1, defval:'' });
     if (json.length < 2) { alert('El archivo parece vacío.'); return; }
     colHeaders = json[0].map(String);
-    rawData = json.slice(1).filter(row => row.some(c => c !== ''));
+    rawData    = json.slice(1).filter(row => row.some(c => c !== ''));
     document.getElementById('lastLoaded').textContent = `${file.name} — ${rawData.length} filas`;
     showColumnMapper();
   };
@@ -260,49 +229,88 @@ function handleFile(file) {
 function showColumnMapper() {
   document.getElementById('columnMap').style.display = 'block';
   ['colFecha','colBroker','colCliente','colMonto'].forEach(id => {
-    document.getElementById(id).innerHTML = colHeaders.map((h,i) => `<option value="${i}">${h}</option>`).join('');
+    document.getElementById(id).innerHTML =
+      colHeaders.map((h,i) => `<option value="${i}">${h}</option>`).join('');
   });
   autoDetect('colFecha',   ['fecha','mes','date','month','periodo','period']);
   autoDetect('colBroker',  ['broker','agente','agent','intermediario','vendedor','asesor']);
   autoDetect('colCliente', ['cliente','client','customer','nombre','name']);
   autoDetect('colMonto',   ['monto','facturado','amount','total','valor','importe','precio']);
 }
-
 function autoDetect(id, kws) {
   const idx = colHeaders.findIndex(h => kws.some(k => h.toLowerCase().includes(k)));
   if (idx >= 0) document.getElementById(id).value = idx;
 }
 
-/* ---- Date normalization ---- */
-function fromDate(d) {
-  return `${MONTH_ORDER[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
-}
-
+// ── NORMALIZACIÓN DE FECHAS ──────────────────────────────────
 function normalizeMonth(raw) {
-  if (raw instanceof Date && !isNaN(raw)) return fromDate(raw);
-  if (typeof raw === 'number' && raw > 1000)
-    return fromDate(new Date((raw - 25569) * 86400 * 1000));
+  // 1. Número serial de Excel
+  if (typeof raw === 'number' && raw > 1000) {
+    const d = new Date((raw - 25569) * 86400 * 1000);
+    return `${MONTH_ORDER[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
+  }
+  // 2. Objeto Date
+  if (raw instanceof Date && !isNaN(raw))
+    return `${MONTH_ORDER[raw.getUTCMonth()]} ${raw.getUTCFullYear()}`;
+
   const str = String(raw).trim();
-  let m = str.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})$/);
+  const low = str.toLowerCase();
+  let m;
+
+  // 3. "01-abr-26"  "01-abr-2026"  "01/abr/26"  ← formato Excel español
+  m = str.match(/^(\d{1,2})[\-\/\.]([a-záéíóú]{3,})[\-\/\.](\d{2,4})$/i);
+  if (m) {
+    const abbr = m[2].toLowerCase().slice(0,3);
+    const mIdx = MONTH_ABBR.indexOf(abbr);
+    if (mIdx >= 0) {
+      let yr = parseInt(m[3]);
+      if (yr < 100) yr += 2000;
+      return `${MONTH_ORDER[mIdx]} ${yr}`;
+    }
+  }
+
+  // 4. "abr-26"  "abr-2026"  (sin día)
+  m = str.match(/^([a-záéíóú]{3,})[\-\/\.](\d{2,4})$/i);
+  if (m) {
+    const abbr = m[1].toLowerCase().slice(0,3);
+    const mIdx = MONTH_ABBR.indexOf(abbr);
+    if (mIdx >= 0) {
+      let yr = parseInt(m[2]);
+      if (yr < 100) yr += 2000;
+      return `${MONTH_ORDER[mIdx]} ${yr}`;
+    }
+  }
+
+  // 5. DD/MM/YYYY o DD-MM-YYYY (números)
+  m = str.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})$/);
   if (m) return `${MONTH_ORDER[+m[2]-1]} ${m[3]}`;
+
+  // 6. YYYY-MM-DD
   m = str.match(/^(\d{4})[\/\-](\d{1,2})[\/\-](\d{1,2})$/);
   if (m) return `${MONTH_ORDER[+m[2]-1]} ${m[1]}`;
-  const lower = str.toLowerCase();
-  const mIdx  = MONTH_ORDER.findIndex(mn => lower.includes(mn));
-  const yearM = lower.match(/\d{4}/);
+
+  // 7. Nombre completo: "abril 2026", "1 de abril de 2026"
+  const mIdx  = MONTH_ORDER.findIndex(mn => low.includes(mn));
+  const yearM = low.match(/\d{4}/);
   if (mIdx >= 0 && yearM) return `${MONTH_ORDER[mIdx]} ${yearM[0]}`;
-  return str.toLowerCase();
+
+  // 8. Abreviatura en texto: "ABR 2026"
+  const abbrIdx = MONTH_ABBR.findIndex(a => low.includes(a));
+  const yearM2  = low.match(/\d{4}/);
+  if (abbrIdx >= 0 && yearM2) return `${MONTH_ORDER[abbrIdx]} ${yearM2[0]}`;
+
+  return low;
 }
 
 function getOrderedMonths(data) {
   const months = [...new Set(data.map(r => r.mes))];
   return months.sort((a,b) => {
     const parse = s => {
-      const mIdx = MONTH_ORDER.findIndex(mn => s.startsWith(mn) || s.includes(mn));
+      const mIdx = MONTH_ORDER.findIndex(mn => s.startsWith(mn)||s.includes(mn));
       const yr   = parseInt(s.match(/\d{4}/)?.[0]) || 0;
-      return yr * 12 + (mIdx >= 0 ? mIdx : 99);
+      return yr*12 + (mIdx>=0?mIdx:99);
     };
-    return parse(a) - parse(b);
+    return parse(a)-parse(b);
   });
 }
 
@@ -322,317 +330,205 @@ function applyMapping() {
   renderKPIs(window.parsedData);
   renderChart(window.parsedData);
   renderBrokersTable(window.parsedData);
-
   document.getElementById('dashboardContent').classList.add('visible');
   document.getElementById('columnMap').style.display = 'none';
   zone.style.display = 'none';
 }
 
 function renderKPIs(data) {
-  const total   = data.reduce((s,r)=>s+r.monto,0);
-  const brokers = new Set(data.map(r=>r.broker)).size;
-  const clients = new Set(data.map(r=>r.cliente)).size;
-  const meses   = new Set(data.map(r=>r.mes)).size;
-  document.getElementById('kpiGrid').innerHTML = `
+  const total=data.reduce((s,r)=>s+r.monto,0),
+        brokers=new Set(data.map(r=>r.broker)).size,
+        clients=new Set(data.map(r=>r.cliente)).size,
+        meses=new Set(data.map(r=>r.mes)).size;
+  document.getElementById('kpiGrid').innerHTML=`
     <div class="kpi-card"><div class="lbl">Total Facturado</div><div class="val">${$MXN(total)}</div><div class="sub">${meses} mes(es)</div></div>
     <div class="kpi-card green"><div class="lbl">Brokers Activos</div><div class="val">${brokers}</div><div class="sub">intermediarios</div></div>
     <div class="kpi-card orange"><div class="lbl">Clientes Únicos</div><div class="val">${clients}</div><div class="sub">en total</div></div>
     <div class="kpi-card purple"><div class="lbl">Promedio Mensual</div><div class="val">${$MXN(total/(meses||1))}</div><div class="sub">por mes</div></div>`;
 }
 
-function renderChart(data, canvasId='monthChart', destroyRef='chartInstance') {
-  const months = getOrderedMonths(data);
-  const byMonth = {};
-  months.forEach(m => byMonth[m]=0);
-  data.forEach(r => byMonth[r.mes] = (byMonth[r.mes]||0)+r.monto);
-  if (window[destroyRef]) window[destroyRef].destroy();
-  const ctx = document.getElementById(canvasId).getContext('2d');
-  window[destroyRef] = new Chart(ctx, {
+function renderChart(data, canvasId='monthChart', ref='chartInstance') {
+  const months=getOrderedMonths(data), byMonth={};
+  months.forEach(m=>byMonth[m]=0);
+  data.forEach(r=>byMonth[r.mes]=(byMonth[r.mes]||0)+r.monto);
+  if(window[ref]) window[ref].destroy();
+  window[ref]=new Chart(document.getElementById(canvasId).getContext('2d'),{
     type:'bar',
-    data:{
-      labels: months.map(cap),
-      datasets:[{
-        label:'Facturado',
-        data: months.map(m=>byMonth[m]),
-        backgroundColor: months.map((_,i)=>`hsla(${220+i*30},70%,55%,.85)`),
-        borderRadius:8, borderSkipped:false
-      }]
-    },
-    options:{
-      responsive:true,
-      plugins:{ legend:{display:false}, tooltip:{callbacks:{label:c=>' '+$MXN(c.raw)}} },
-      scales:{ y:{ticks:{callback:v=>$MXN(v)}, grid:{color:'#f0f0f0'}}, x:{grid:{display:false}} }
-    }
+    data:{labels:months.map(cap),datasets:[{label:'Facturado',data:months.map(m=>byMonth[m]),
+      backgroundColor:months.map((_,i)=>`hsla(${220+i*30},70%,55%,.85)`),borderRadius:8,borderSkipped:false}]},
+    options:{responsive:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' '+$MXN(c.raw)}}},
+      scales:{y:{ticks:{callback:v=>$MXN(v)},grid:{color:'#f0f0f0'}},x:{grid:{display:false}}}}
   });
 }
 
 function buildBrokerMap(data) {
-  const map = {};
-  data.forEach(r => {
-    if (!map[r.broker]) map[r.broker] = { byMonth:{}, clients:{} };
-    map[r.broker].byMonth[r.mes] = (map[r.broker].byMonth[r.mes]||0)+r.monto;
-    if (!map[r.broker].clients[r.cliente]) map[r.broker].clients[r.cliente]={byMonth:{}};
-    map[r.broker].clients[r.cliente].byMonth[r.mes] =
-      (map[r.broker].clients[r.cliente].byMonth[r.mes]||0)+r.monto;
+  const map={};
+  data.forEach(r=>{
+    if(!map[r.broker]) map[r.broker]={byMonth:{},clients:{}};
+    map[r.broker].byMonth[r.mes]=(map[r.broker].byMonth[r.mes]||0)+r.monto;
+    if(!map[r.broker].clients[r.cliente]) map[r.broker].clients[r.cliente]={byMonth:{}};
+    map[r.broker].clients[r.cliente].byMonth[r.mes]=(map[r.broker].clients[r.cliente].byMonth[r.mes]||0)+r.monto;
   });
   return map;
 }
 
 function renderBrokersTable(data) {
-  const allMonths = getOrderedMonths(data);
-  const lastTwo   = allMonths.slice(-2);
-  const hasDiff   = lastTwo.length === 2;
-  const brokerMap = buildBrokerMap(data);
-  const sorted = Object.entries(brokerMap).sort((a,b)=>totalOf(b[1])-totalOf(a[1]));
-
-  document.getElementById('brokerTableHead').innerHTML = `<tr>
-    <th>BROKER / CLIENTE</th>
-    <th>ACCIÓN</th>
-    ${allMonths.map(m=>`<th>${cap(m)}</th>`).join('')}
-    ${hasDiff?`<th>DIFERENCIA</th><th>% CAMBIO</th>`:''}
-    <th>TIPO</th>
-  </tr>`;
-
-  let html='';
-  sorted.forEach(([broker, info], idx) => {
-    const mCells = monthCells(info.byMonth, allMonths);
-    const [dc,pc] = hasDiff ? diffCells(info.byMonth, lastTwo) : ['',''];
-    html += `
-      <tr class="broker-row" id="brow-${idx}" onclick="toggleBroker(${idx})">
-        <td><span class="chevron" id="chev-${idx}">▶</span>
-          <a class="broker-name-link" onclick="event.stopPropagation();openBrokerModal('${escQ(broker)}')">${broker}</a>
-        </td>
-        <td style="text-align:center">
-          <button class="btn btn-outline" style="padding:4px 10px;font-size:.72rem"
-            onclick="event.stopPropagation();openBrokerModal('${escQ(broker)}')">Ver detalle</button>
-        </td>
-        ${mCells}${dc}${pc}
-        <td class="type-cell"><span class="badge-broker">Broker</span></td>
-      </tr>`;
-    Object.entries(info.clients)
-      .sort((a,b)=>totalOf(b[1])-totalOf(a[1]))
-      .forEach(([cliente, cInfo]) => {
-        const cm = monthCells(cInfo.byMonth, allMonths);
-        const [cdc,cpc] = hasDiff ? diffCells(cInfo.byMonth, lastTwo) : ['',''];
-        html += `
-          <tr class="client-row" data-broker="${idx}" style="display:none">
-            <td>${cliente}</td>
-            <td></td>
-            ${cm}${cdc}${cpc}
-            <td class="type-cell"><span class="badge-client">Cliente</span></td>
-          </tr>`;
-      });
-  });
-  document.getElementById('brokerTableBody').innerHTML = html;
-}
-
-function monthCells(byMonth, allMonths) {
-  return allMonths.map(m => {
-    const v = byMonth[m]||0;
-    return `<td class="amt${v?'':' amt-zero'}">${v?$MXN(v):'—'}</td>`;
-  }).join('');
-}
-
-function diffCells(byMonth, lastTwo) {
-  const prev = byMonth[lastTwo[0]]||0, curr = byMonth[lastTwo[1]]||0;
-  const diff = curr - prev;
-  const pct  = prev>0 ? diff/prev*100 : null;
-  const cls  = diff<0?'neg':diff>0?'pos':'neutral';
-  return [
-    `<td class="amt ${cls}">${fmtDiff(diff)}</td>`,
-    `<td class="${cls}">${pct!==null?fmtPct(pct):'—'}</td>`
-  ];
-}
-
-function toggleBroker(idx) {
-  const row = document.getElementById(`brow-${idx}`);
-  const chv = document.getElementById(`chev-${idx}`);
-  const open = row.classList.toggle('open');
-  chv.style.transform = open ? 'rotate(90deg)' : '';
-  document.querySelectorAll(`.client-row[data-broker="${idx}"]`)
-    .forEach(r => r.style.display = open ? '' : 'none');
-}
-
-function openBrokerModal(broker) {
-  currentBroker = broker;
-  const data = window.parsedData.filter(r => r.broker === broker);
-  const allMonths = getOrderedMonths(data);
-  const lastTwo = allMonths.slice(-2);
-  const hasDiff = lastTwo.length === 2;
-
-  document.getElementById('modalBrokerName').textContent = broker;
-
-  const total   = data.reduce((s,r)=>s+r.monto,0);
-  const clients = new Set(data.map(r=>r.cliente)).size;
-  const meses   = new Set(data.map(r=>r.mes)).size;
-  let diffHtml = '';
-  if (hasDiff) {
-    const byM={};data.forEach(r=>byM[r.mes]=(byM[r.mes]||0)+r.monto);
-    const prev=byM[lastTwo[0]]||0, curr=byM[lastTwo[1]]||0;
-    const diff=curr-prev, pct=prev>0?diff/prev*100:null;
-    const cls=diff<0?'neg':diff>0?'pos':'neutral';
-    diffHtml = `<div class="kpi-card ${diff<0?'':'green'}">
-      <div class="lbl">Variación (${cap(lastTwo[0])} → ${cap(lastTwo[1])})</div>
-      <div class="val ${cls}">${fmtDiff(diff)}</div>
-      <div class="sub">${pct!==null?fmtPct(pct):''}</div></div>`;
-  }
-  document.getElementById('modalKpis').innerHTML = `
-    <div class="kpi-card"><div class="lbl">Total Facturado</div><div class="val">${$MXN(total)}</div></div>
-    <div class="kpi-card green"><div class="lbl">Clientes</div><div class="val">${clients}</div></div>
-    <div class="kpi-card orange"><div class="lbl">Meses con datos</div><div class="val">${meses}</div></div>
-    ${diffHtml}`;
-
-  renderChart(data, 'modalChart', 'modalChartInstance');
-
-  document.getElementById('modalTableHead').innerHTML = `<tr>
-    <th>CLIENTE</th>
+  const allMonths=getOrderedMonths(data),lastTwo=allMonths.slice(-2),hasDiff=lastTwo.length===2;
+  const brokerMap=buildBrokerMap(data),sorted=Object.entries(brokerMap).sort((a,b)=>totalOf(b[1])-totalOf(a[1]));
+  document.getElementById('brokerTableHead').innerHTML=`<tr>
+    <th>BROKER / CLIENTE</th><th>ACCIÓN</th>
     ${allMonths.map(m=>`<th>${cap(m)}</th>`).join('')}
     ${hasDiff?'<th>DIFERENCIA</th><th>% CAMBIO</th>':''}
-  </tr>`;
+    <th>TIPO</th></tr>`;
+  let html='';
+  sorted.forEach(([broker,info],idx)=>{
+    const [dc,pc]=hasDiff?dCells(info.byMonth,lastTwo):['',''];
+    html+=`<tr class="broker-row" id="brow-${idx}" onclick="toggleBroker(${idx})">
+      <td><span class="chevron" id="chev-${idx}">▶</span>
+        <a class="broker-name-link" onclick="event.stopPropagation();openModal('${escQ(broker)}')">${broker}</a></td>
+      <td style="text-align:center"><button class="btn btn-outline" style="padding:4px 10px;font-size:.72rem"
+        onclick="event.stopPropagation();openModal('${escQ(broker)}')">Ver detalle</button></td>
+      ${mCells(info.byMonth,allMonths)}${dc}${pc}
+      <td class="type-cell"><span class="badge-broker">Broker</span></td></tr>`;
+    Object.entries(info.clients).sort((a,b)=>totalOf(b[1])-totalOf(a[1])).forEach(([cli,cInfo])=>{
+      const [cdc,cpc]=hasDiff?dCells(cInfo.byMonth,lastTwo):['',''];
+      html+=`<tr class="client-row" data-broker="${idx}" style="display:none">
+        <td>${cli}</td><td></td>${mCells(cInfo.byMonth,allMonths)}${cdc}${cpc}
+        <td class="type-cell"><span class="badge-client">Cliente</span></td></tr>`;
+    });
+  });
+  document.getElementById('brokerTableBody').innerHTML=html;
+}
 
-  const clientMap = buildBrokerMap(data)[broker]?.clients || {};
-  const sortedC = Object.entries(clientMap).sort((a,b)=>totalOf(b[1])-totalOf(a[1]));
+function mCells(byMonth,months){
+  return months.map(m=>{const v=byMonth[m]||0;return`<td class="amt${v?'':' amt-zero'}">${v?$MXN(v):'—'}</td>`;}).join('');
+}
+function dCells(byMonth,lastTwo){
+  const prev=byMonth[lastTwo[0]]||0,curr=byMonth[lastTwo[1]]||0,diff=curr-prev;
+  const pct=prev>0?diff/prev*100:null,cls=diff<0?'neg':diff>0?'pos':'neutral';
+  return[`<td class="amt ${cls}">${fmtDiff(diff)}</td>`,`<td class="${cls}">${pct!==null?fmtPct(pct):'—'}</td>`];
+}
+function toggleBroker(idx){
+  const row=document.getElementById(`brow-${idx}`),chv=document.getElementById(`chev-${idx}`);
+  const open=row.classList.toggle('open');
+  chv.style.transform=open?'rotate(90deg)':'';
+  document.querySelectorAll(`.client-row[data-broker="${idx}"]`).forEach(r=>r.style.display=open?'':'none');
+}
+
+function openModal(broker){
+  currentBroker=broker;
+  const data=window.parsedData.filter(r=>r.broker===broker);
+  const allMonths=getOrderedMonths(data),lastTwo=allMonths.slice(-2),hasDiff=lastTwo.length===2;
+  document.getElementById('modalBrokerName').textContent=broker;
+  const total=data.reduce((s,r)=>s+r.monto,0),clients=new Set(data.map(r=>r.cliente)).size,meses=new Set(data.map(r=>r.mes)).size;
+  let diffHtml='';
+  if(hasDiff){
+    const byM={};data.forEach(r=>byM[r.mes]=(byM[r.mes]||0)+r.monto);
+    const prev=byM[lastTwo[0]]||0,curr=byM[lastTwo[1]]||0,diff=curr-prev,pct=prev>0?diff/prev*100:null;
+    const cls=diff<0?'neg':diff>0?'pos':'neutral';
+    diffHtml=`<div class="kpi-card ${diff<0?'':'green'}"><div class="lbl">Variación (${cap(lastTwo[0])} → ${cap(lastTwo[1])})</div>
+      <div class="val ${cls}">${fmtDiff(diff)}</div><div class="sub">${pct!==null?fmtPct(pct):''}</div></div>`;
+  }
+  document.getElementById('modalKpis').innerHTML=`
+    <div class="kpi-card"><div class="lbl">Total Facturado</div><div class="val">${$MXN(total)}</div></div>
+    <div class="kpi-card green"><div class="lbl">Clientes</div><div class="val">${clients}</div></div>
+    <div class="kpi-card orange"><div class="lbl">Meses</div><div class="val">${meses}</div></div>${diffHtml}`;
+  renderChart(data,'modalChart','modalChartInstance');
+  document.getElementById('modalTableHead').innerHTML=`<tr><th>CLIENTE</th>
+    ${allMonths.map(m=>`<th>${cap(m)}</th>`).join('')}${hasDiff?'<th>DIFERENCIA</th><th>% CAMBIO</th>':''}</tr>`;
+  const clientMap=buildBrokerMap(data)[broker]?.clients||{};
   let tbody='';
-  sortedC.forEach(([cliente, cInfo]) => {
-    const cm = monthCells(cInfo.byMonth, allMonths);
-    const [cdc,cpc] = hasDiff ? diffCells(cInfo.byMonth, lastTwo) : ['',''];
-    tbody += `<tr class="client-row" style="display:table-row">
-      <td style="padding-left:14px;text-align:left">${cliente}</td>
-      ${cm}${cdc}${cpc}
-    </tr>`;
+  Object.entries(clientMap).sort((a,b)=>totalOf(b[1])-totalOf(a[1])).forEach(([cli,cInfo])=>{
+    const [cdc,cpc]=hasDiff?dCells(cInfo.byMonth,lastTwo):['',''];
+    tbody+=`<tr class="client-row" style="display:table-row">
+      <td style="padding-left:14px;text-align:left">${cli}</td>${mCells(cInfo.byMonth,allMonths)}${cdc}${cpc}</tr>`;
   });
-  document.getElementById('modalTableBody').innerHTML = tbody;
-
+  document.getElementById('modalTableBody').innerHTML=tbody;
   document.getElementById('modalOverlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
+  document.body.style.overflow='hidden';
 }
+function closeModal(){document.getElementById('modalOverlay').classList.remove('open');document.body.style.overflow='';}
+function closeModalOnBg(e){if(e.target===document.getElementById('modalOverlay'))closeModal();}
 
-function closeModal() {
-  document.getElementById('modalOverlay').classList.remove('open');
-  document.body.style.overflow = '';
-}
-function closeModalOnBg(e) {
-  if (e.target === document.getElementById('modalOverlay')) closeModal();
-}
-
-function downloadExcel() {
-  const data = window.parsedData;
-  const allMonths = getOrderedMonths(data);
-  const lastTwo = allMonths.slice(-2);
-  const hasDiff = lastTwo.length === 2;
-  const brokerMap = buildBrokerMap(data);
-  const sorted = Object.entries(brokerMap).sort((a,b)=>totalOf(b[1])-totalOf(a[1]));
-  const headers = ['Broker / Cliente','Tipo',...allMonths.map(m=>cap(m)),
-    ...(hasDiff?['Diferencia','% Cambio']:[])];
-  const rows = [headers];
-  sorted.forEach(([broker, info]) => {
-    const prev=hasDiff?info.byMonth[lastTwo[0]]||0:0;
-    const curr=hasDiff?info.byMonth[lastTwo[1]]||0:0;
-    const diff=curr-prev, pct=prev>0?diff/prev*100:null;
-    rows.push([broker,'Broker',...allMonths.map(m=>info.byMonth[m]||0),
-      ...(hasDiff?[diff,pct!==null?+(pct.toFixed(2)):null]:[])]);
-    Object.entries(info.clients).sort((a,b)=>totalOf(b[1])-totalOf(a[1]))
-      .forEach(([cliente,cInfo]) => {
-        const cp=hasDiff?cInfo.byMonth[lastTwo[0]]||0:0;
-        const cc=hasDiff?cInfo.byMonth[lastTwo[1]]||0:0;
-        const cd=cc-cp, cpct=cp>0?cd/cp*100:null;
-        rows.push([cliente,'Cliente',...allMonths.map(m=>cInfo.byMonth[m]||0),
-          ...(hasDiff?[cd,cpct!==null?+(cpct.toFixed(2)):null]:[])]);
-      });
+function buildTableData(data){
+  const allMonths=getOrderedMonths(data),lastTwo=allMonths.slice(-2),hasDiff=lastTwo.length===2;
+  const brokerMap=buildBrokerMap(data),sorted=Object.entries(brokerMap).sort((a,b)=>totalOf(b[1])-totalOf(a[1]));
+  const headers=['Broker / Cliente','Tipo',...allMonths.map(cap),...(hasDiff?['Diferencia','% Cambio']:[])];
+  const rows=[],meta=[];
+  sorted.forEach(([broker,info])=>{
+    const prev=hasDiff?info.byMonth[lastTwo[0]]||0:0,curr=hasDiff?info.byMonth[lastTwo[1]]||0:0;
+    const diff=curr-prev,pct=prev>0?diff/prev*100:null;
+    rows.push([broker,'Broker',...allMonths.map(m=>info.byMonth[m]||0),...(hasDiff?[diff,pct!==null?+(pct.toFixed(2)):null]:[])]);
+    meta.push(true);
+    Object.entries(info.clients).sort((a,b)=>totalOf(b[1])-totalOf(a[1])).forEach(([cli,cInfo])=>{
+      const cp=hasDiff?cInfo.byMonth[lastTwo[0]]||0:0,cc=hasDiff?cInfo.byMonth[lastTwo[1]]||0:0;
+      const cd=cc-cp,cpct=cp>0?cd/cp*100:null;
+      rows.push([cli,'Cliente',...allMonths.map(m=>cInfo.byMonth[m]||0),...(hasDiff?[cd,cpct!==null?+(cpct.toFixed(2)):null]:[])]);
+      meta.push(false);
+    });
   });
-  const ws=XLSX.utils.aoa_to_sheet(rows);
-  const wb=XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb,ws,'Facturación');
-  XLSX.writeFile(wb,'reporte_facturacion.xlsx');
+  return{headers,rows,meta,allMonths,lastTwo,hasDiff};
 }
 
-function downloadPDF() {
-  const { jsPDF } = window.jspdf;
-  const doc = new jsPDF({ orientation:'landscape', unit:'mm', format:'a4' });
-  doc.setFontSize(14); doc.text('Reporte de Facturación', 14, 16);
-  doc.setFontSize(9);  doc.text(`Generado: ${new Date().toLocaleDateString('es-MX')}`, 14, 22);
-  const data = window.parsedData;
-  const allMonths = getOrderedMonths(data);
-  const lastTwo = allMonths.slice(-2);
-  const hasDiff = lastTwo.length === 2;
-  const brokerMap = buildBrokerMap(data);
-  const sorted = Object.entries(brokerMap).sort((a,b)=>totalOf(b[1])-totalOf(a[1]));
-  const head=[['Broker / Cliente','Tipo',...allMonths.map(m=>cap(m)),
-    ...(hasDiff?['Diferencia','% Cambio']:[])]];
-  const body=[];
-  sorted.forEach(([broker,info]) => {
-    const prev=hasDiff?info.byMonth[lastTwo[0]]||0:0;
-    const curr=hasDiff?info.byMonth[lastTwo[1]]||0:0;
-    const diff=curr-prev, pct=prev>0?diff/prev*100:null;
-    body.push({cells:[broker,'Broker',...allMonths.map(m=>info.byMonth[m]?$MXN(info.byMonth[m]):'—'),
-      ...(hasDiff?[fmtDiff(diff),pct!==null?fmtPct(pct):'—']:[])],isBroker:true});
-    Object.entries(info.clients).sort((a,b)=>totalOf(b[1])-totalOf(a[1]))
-      .forEach(([cliente,cInfo]) => {
-        const cp=hasDiff?cInfo.byMonth[lastTwo[0]]||0:0;
-        const cc=hasDiff?cInfo.byMonth[lastTwo[1]]||0:0;
-        const cd=cc-cp, cpct=cp>0?cd/cp*100:null;
-        body.push({cells:['  '+cliente,'Cliente',...allMonths.map(m=>cInfo.byMonth[m]?$MXN(cInfo.byMonth[m]):'—'),
-          ...(hasDiff?[fmtDiff(cd),cpct!==null?fmtPct(cpct):'—']:[])],isBroker:false});
-      });
-  });
-  doc.autoTable({head,body:body.map(r=>r.cells),startY:28,
-    styles:{fontSize:7,cellPadding:2},
+function downloadExcel(){
+  const{headers,rows}=buildTableData(window.parsedData);
+  const ws=XLSX.utils.aoa_to_sheet([headers,...rows]),wb=XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb,ws,'Facturación');XLSX.writeFile(wb,'reporte_facturacion.xlsx');
+}
+function downloadPDF(){
+  const{jsPDF}=window.jspdf;
+  const doc=new jsPDF({orientation:'landscape',unit:'mm',format:'a4'});
+  doc.setFontSize(14);doc.text('Reporte de Facturación',14,16);
+  doc.setFontSize(9);doc.text(`Generado: ${new Date().toLocaleDateString('es-MX')}`,14,22);
+  const{headers,rows,meta}=buildTableData(window.parsedData);
+  const fmtRows=rows.map((r,i)=>r.map((v,j)=>{
+    if(j===0||j===1)return v;
+    if(typeof v==='number')return v!==0?$MXN(v):'—';
+    return v??'—';
+  }));
+  doc.autoTable({head:[headers],body:fmtRows,startY:28,styles:{fontSize:7,cellPadding:2},
     headStyles:{fillColor:[26,26,46],textColor:255,fontStyle:'bold'},
-    didParseCell:(d)=>{if(d.section==='body'&&body[d.row.index]?.isBroker)d.cell.styles.fillColor=[255,253,231]},
-    columnStyles:{0:{cellWidth:45}}});
+    didParseCell:d=>{if(d.section==='body'&&meta[d.row.index])d.cell.styles.fillColor=[255,253,231]},
+    columnStyles:{0:{cellWidth:40}}});
   doc.save('reporte_facturacion.pdf');
 }
-
-function downloadBrokerExcel() {
-  if (!currentBroker) return;
-  const data = window.parsedData.filter(r=>r.broker===currentBroker);
-  const allMonths = getOrderedMonths(data);
-  const lastTwo = allMonths.slice(-2);
-  const hasDiff = lastTwo.length === 2;
-  const clientMap = buildBrokerMap(data)[currentBroker]?.clients || {};
-  const headers=['Cliente',...allMonths.map(m=>cap(m)),...(hasDiff?['Diferencia','% Cambio']:[])];
+function downloadBrokerExcel(){
+  if(!currentBroker)return;
+  const data=window.parsedData.filter(r=>r.broker===currentBroker);
+  const allMonths=getOrderedMonths(data),lastTwo=allMonths.slice(-2),hasDiff=lastTwo.length===2;
+  const clientMap=buildBrokerMap(data)[currentBroker]?.clients||{};
+  const headers=['Cliente',...allMonths.map(cap),...(hasDiff?['Diferencia','% Cambio']:[])];
   const rows=[headers];
-  Object.entries(clientMap).sort((a,b)=>totalOf(b[1])-totalOf(a[1]))
-    .forEach(([cliente,cInfo]) => {
-      const cp=hasDiff?cInfo.byMonth[lastTwo[0]]||0:0;
-      const cc=hasDiff?cInfo.byMonth[lastTwo[1]]||0:0;
-      const cd=cc-cp, cpct=cp>0?cd/cp*100:null;
-      rows.push([cliente,...allMonths.map(m=>cInfo.byMonth[m]||0),
-        ...(hasDiff?[cd,cpct!==null?+(cpct.toFixed(2)):null]:[])]);
-    });
-  const ws=XLSX.utils.aoa_to_sheet(rows);
-  const wb=XLSX.utils.book_new();
+  Object.entries(clientMap).sort((a,b)=>totalOf(b[1])-totalOf(a[1])).forEach(([cli,cInfo])=>{
+    const cp=hasDiff?cInfo.byMonth[lastTwo[0]]||0:0,cc=hasDiff?cInfo.byMonth[lastTwo[1]]||0:0;
+    const cd=cc-cp,cpct=cp>0?cd/cp*100:null;
+    rows.push([cli,...allMonths.map(m=>cInfo.byMonth[m]||0),...(hasDiff?[cd,cpct!==null?+(cpct.toFixed(2)):null]:[])]);
+  });
+  const ws=XLSX.utils.aoa_to_sheet(rows),wb=XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(wb,ws,currentBroker.slice(0,31));
   XLSX.writeFile(wb,`broker_${currentBroker.replace(/\s+/g,'_')}.xlsx`);
 }
-
-function downloadBrokerPDF() {
-  if (!currentBroker) return;
-  const { jsPDF } = window.jspdf;
-  const doc = new jsPDF({ orientation:'landscape', unit:'mm', format:'a4' });
-  doc.setFontSize(13); doc.text(`Broker: ${currentBroker}`, 14, 16);
-  doc.setFontSize(9);  doc.text(`Generado: ${new Date().toLocaleDateString('es-MX')}`, 14, 22);
-  const data = window.parsedData.filter(r=>r.broker===currentBroker);
-  const allMonths = getOrderedMonths(data);
-  const lastTwo = allMonths.slice(-2);
-  const hasDiff = lastTwo.length === 2;
-  const clientMap = buildBrokerMap(data)[currentBroker]?.clients || {};
-  const head=[['Cliente',...allMonths.map(m=>cap(m)),...(hasDiff?['Diferencia','% Cambio']:[])]];
-  const body=Object.entries(clientMap).sort((a,b)=>totalOf(b[1])-totalOf(a[1]))
-    .map(([cliente,cInfo]) => {
-      const cp=hasDiff?cInfo.byMonth[lastTwo[0]]||0:0;
-      const cc=hasDiff?cInfo.byMonth[lastTwo[1]]||0:0;
-      const cd=cc-cp, cpct=cp>0?cd/cp*100:null;
-      return [cliente,...allMonths.map(m=>cInfo.byMonth[m]?$MXN(cInfo.byMonth[m]):'—'),
-        ...(hasDiff?[fmtDiff(cd),cpct!==null?fmtPct(cpct):'—']:[])];
-    });
+function downloadBrokerPDF(){
+  if(!currentBroker)return;
+  const{jsPDF}=window.jspdf;
+  const doc=new jsPDF({orientation:'landscape',unit:'mm',format:'a4'});
+  doc.setFontSize(13);doc.text(`Broker: ${currentBroker}`,14,16);
+  doc.setFontSize(9);doc.text(`Generado: ${new Date().toLocaleDateString('es-MX')}`,14,22);
+  const data=window.parsedData.filter(r=>r.broker===currentBroker);
+  const allMonths=getOrderedMonths(data),lastTwo=allMonths.slice(-2),hasDiff=lastTwo.length===2;
+  const clientMap=buildBrokerMap(data)[currentBroker]?.clients||{};
+  const head=[['Cliente',...allMonths.map(cap),...(hasDiff?['Diferencia','% Cambio']:[])]];
+  const body=Object.entries(clientMap).sort((a,b)=>totalOf(b[1])-totalOf(a[1])).map(([cli,cInfo])=>{
+    const cp=hasDiff?cInfo.byMonth[lastTwo[0]]||0:0,cc=hasDiff?cInfo.byMonth[lastTwo[1]]||0:0;
+    const cd=cc-cp,cpct=cp>0?cd/cp*100:null;
+    return[cli,...allMonths.map(m=>cInfo.byMonth[m]?$MXN(cInfo.byMonth[m]):'—'),...(hasDiff?[fmtDiff(cd),cpct!==null?fmtPct(cpct):'—']:[])];
+  });
   doc.autoTable({head,body,startY:28,styles:{fontSize:7,cellPadding:2},
-    headStyles:{fillColor:[26,26,46],textColor:255,fontStyle:'bold'},
-    columnStyles:{0:{cellWidth:55}}});
+    headStyles:{fillColor:[26,26,46],textColor:255,fontStyle:'bold'},columnStyles:{0:{cellWidth:55}}});
   doc.save(`broker_${currentBroker.replace(/\s+/g,'_')}.pdf`);
 }
 
-function reloadFile() {
+function reloadFile(){
   document.getElementById('dashboardContent').classList.remove('visible');
   document.getElementById('uploadZone').style.display='';
   document.getElementById('columnMap').style.display='none';
@@ -640,24 +536,22 @@ function reloadFile() {
   fileInput.value='';
 }
 
-function totalOf(info){return Object.values(info.byMonth||{}).reduce((s,v)=>s+v,0)}
+function totalOf(info){return Object.values(info.byMonth||{}).reduce((s,v)=>s+v,0);}
 function escQ(s){return s.replace(/'/g,"\\'")}
+function cap(s){return s?s.charAt(0).toUpperCase()+s.slice(1):''}
 function $MXN(n){
-  if(isNaN(n)||n===0)return '—';
-  return new Intl.NumberFormat('es-MX',{style:'currency',currency:'MXN',
-    minimumFractionDigits:2,maximumFractionDigits:2}).format(n);
+  if(isNaN(n)||n===0)return'—';
+  return new Intl.NumberFormat('es-MX',{style:'currency',currency:'MXN',minimumFractionDigits:2,maximumFractionDigits:2}).format(n);
 }
 function fmtDiff(d){
-  if(d===0)return '—';
-  const f=new Intl.NumberFormat('es-MX',{style:'currency',currency:'MXN',
-    minimumFractionDigits:2,maximumFractionDigits:2}).format(Math.abs(d));
+  if(d===0)return'—';
+  const f=new Intl.NumberFormat('es-MX',{style:'currency',currency:'MXN',minimumFractionDigits:2,maximumFractionDigits:2}).format(Math.abs(d));
   return d<0?`(${f})`:`+${f}`;
 }
 function fmtPct(p){
-  if(p===null)return '—';
+  if(p===null)return'—';
   return p<0?`(${Math.abs(p).toFixed(1)}%)`:`+${Math.abs(p).toFixed(1)}%`;
 }
-function cap(s){return s?s.charAt(0).toUpperCase()+s.slice(1):''}
 </script>
 </body>
 </html>
